@@ -1,0 +1,28 @@
+{
+  "id": "random-table-item",
+  "title": "Random Item Table",
+  "version": "1.0.1",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "14.364"
+  },
+  "authors": [
+    {
+      "name": "Bartek",
+      "discord": "bartek6199",
+      "flags": {}
+    }
+  ],
+
+  "esmodules": ["main.js"],
+  "styles": ["random-table-item.css"],
+
+  "languages": [
+    {
+      "lang": "pl",
+      "name": "Polski",
+      "path": "pl.json",
+      "flags": {}
+    }
+  ]
+}
