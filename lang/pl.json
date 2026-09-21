@@ -1,0 +1,29 @@
+{
+  "rit": {
+    "current": "Aktualnie używane kości",
+    "targetNumber": "Wartość docelowa wywołująca wydarzenie",
+    "needToRoll": "Musisz wyrzucić",
+    "lower": "Mniej",
+    "equalOrLower": "Tyle samo lub mniej",
+    "equal": "Dokładnie",
+    "grater": "Więcej",
+    "graterOrequal": "Tyle samo lub więcej",
+    "startdice": "Kość początkowa",
+    "customFormula": "Wprowadź własną formułę Foundry",
+    "enddice": "Kość końcowa",
+    "direction": "Kierunek zmiany kości",
+    "increase": "Zwiększ",
+    "decrese": "Zmniejsz",
+    "connectedTable": "Po wystąpieniu wydarzenia losuj z wybranej tabeli",
+    "ownEventText": "Własny tekst wyświetlany po wystąpieniu wydarzenia",
+    "targetNumbet": "Wartość docelowa",
+    "targetNumbetResult": "Wynik, który należy wyrzucić, aby wywołać wydarzenie",
+    "other": "Inne",
+    "ownEvent": "Własne wydarzenie",
+    "notRolled": "Jeszcze nie wykonano rzutu",
+    "results": "Kość zegara została zmieniona z {currentDice} na {newDice}",
+    "data": "Ustawienia Zegara Przedmiotu",
+    "roll": "Rzuć kością Zegara Przedmiotu",
+    "resetDice": "Kość Zageru dla Przedmiotu została zresetowana do {newDice}"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "rit": {
+    "current": "Currently Used Dice",
+    "targetNumber": "Target Number to Trigger the Event",
+    "needToRoll": "You Need to Roll",
+    "lower": "Lower",
+    "equalOrLower": "Equal or Lower",
+    "equal": "Equal",
+    "grater": "Higher",
+    "graterOrequal": "Higher or Equal",
+    "startdice": "Starting Dice",
+    "customFormula": "Enter Custom Foundry Formula",
+    "enddice": "Ending Dice",
+    "direction": "Direction of Dice Change",
+    "increase": "Increase",
+    "decrese": "Decrease",
+    "connectedTable": "Draw from the Selected Table When the Event Occurs",
+    "ownEventText": "Your Custom Text When the Event Occurs",
+    "targetNumbet": "Target Number",
+    "targetNumbetResult": "Number That Needs to Be Rolled to Trigger the Event",
+    "other": "Other",
+    "ownEvent": "Custom Event",
+    "notRolled": "Not Rolled Yet",
+    "results": "Clock Dice Changed from {currentDice} to {newDice}",
+    "data": "Item Clock Setup",
+    "roll": "Roll Item Clock",
+    "resetDice": "Item Clock Dice was reset to {newDice}"
+  }
+}

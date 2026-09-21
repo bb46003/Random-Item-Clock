@@ -5,6 +5,15 @@
         {{#if (not isGM)}}
         <label>{{localize "rit.targetNumber"}}</label>
         <p>{{targetNumber}}</p>
+        <label>{{localize "rit.needToRoll"}}</label>
+        <select id="resultType" disabled>
+            <option value="<"{{#if (eq resulttype "<")}}selected{{/if}}>{{localize "rit.lower"}}</option>
+            <option value="=<"{{#if (eq resulttype "=<")}}selected{{/if}}>{{localize "rit.equalOrLower"}}</option>
+            <option value="="{{#if (eq resulttype "=")}}selected{{/if}}>{{localize "rit.equal"}}</option>
+            <option value=">"{{#if (eq resulttype ">")}}selected{{/if}}>{{localize "rit.grater"}}</option>
+            <option value=">="{{#if (eq resulttype ">=")}}selected{{/if}}>{{localize "rit.graterOrequal"}}</option>
+        </select>   
+        
         {{/if}}
     </div>
 <div>
@@ -50,9 +59,10 @@
     {{#if differentDice}}
         <div class="form-group">
             <label>{{localize "rit.direction"}}</label>
+            {{log (eq direction "down")}}
             <select id="direction">
-                <option value="up" {{#if (eq ../direction "up")}}checked {{/if}}>{{localize "rit.increase"}}</option>
-                <option value="down"{{#if (eq ../direction "down")}}checked {{/if}}>{{localize "rit.decrese"}}</option>
+                <option value="up" {{#if (eq direction "up")}}selected {{/if}}>{{localize "rit.increase"}}</option>
+                <option value="down" {{#if (eq direction "down")}}selected {{/if}}>{{localize "rit.decrese"}}</option>
             </select>
         </div>
     {{/if}}
@@ -79,7 +89,15 @@
     </div>
     <div class="form-group">
         <label>{{localize "rit.targetNumbet"}}</label>
-        <input id="targetNumber" type="number" value={{targetNumber}}>       
+        <input id="targetNumber" type="number" value={{targetNumber}}>
+        <label>{{localize "rit.targetNumbetResult"}}</label>
+        <select id="resultType">
+            <option value="<"{{#if (eq resulttype "<")}}selected{{/if}}>{{localize "rit.lower"}}</option>
+            <option value="=<"{{#if (eq resulttype "=<")}}selected{{/if}}>{{localize "rit.equalOrLower"}}</option>
+            <option value="="{{#if (eq resulttype "=")}}selected{{/if}}>{{localize "rit.equal"}}</option>
+            <option value=">"{{#if (eq resulttype ">")}}selected{{/if}}>{{localize "rit.grater"}}</option>
+            <option value=">="{{#if (eq resulttype ">=")}}selected{{/if}}>{{localize "rit.graterOrequal"}}</option>
+        </select>       
     </div>
 </div>
     {{/if}}

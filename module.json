@@ -21,7 +21,13 @@
     {
       "lang": "pl",
       "name": "Polski",
-      "path": "pl.json",
+      "path": "lang/pl.json",
+      "flags": {}
+    },
+        {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
       "flags": {}
     }
   ]
