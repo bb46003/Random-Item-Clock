@@ -30,5 +30,7 @@
       "path": "lang/en.json",
       "flags": {}
     }
-  ]
+  ],
+  "manifest": "https://raw.githubusercontent.com/bb46003/Random-Item-Clock/refs/heads/main/module.json",
+  "
 }
