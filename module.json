@@ -3,7 +3,7 @@
   "title": "Item Random Clock",
   "version": "1.0.1",
   "compatibility": {
-    "minimum": "13",
+    "minimum": "14",
     "verified": "14.364"
   },
   "authors": [
