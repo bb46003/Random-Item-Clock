@@ -1,31 +1,86 @@
+<section>
+    <div class="status">
+        <label>{{localize "rit.current"}}</label>
+        <p>{{currentDice}}</p>
+        {{#if (not isGM)}}
+        <label>{{localize "rit.targetNumber"}}</label>
+        <p>{{targetNumber}}</p>
+        {{/if}}
+    </div>
 <div>
+    {{#if isGM}}
     <div class="form-group">
         <label>{{localize "rit.startdice"}}</label>
-        <select id="start-dice">
-            {{#each startDice}}
+        <select id="start_dice">
+            {{#each dice}}
                 <option value={{this}} 
-                    {{#if (eq selectedStart this)}}selected{{/if}}> {{this}}
+                    {{#if (eq ../selectedStart this)}}selected{{/if}}
+                    {{#if (and (eq this ../custom) ../custemStart)}}selected{{/if}}
+                > 
+                    {{this}}
                 </option>
             {{/each}}
         </select>
+        {{#if custemStart}}
+        <div>
+            <label>{{localize "rit.customFormula"}}</label>
+            <input id="start_dice" type="text" value={{selectedStart}}>
+        </div>
+        {{/if}}
     </div>
     <div class="form-group">
         <label>{{localize "rit.enddice"}}</label>
-        <select id="end-dice">
-            {{#each endDice}}
+        <select id="end_dice">
+            {{#each dice}}
                 <option value={{this}} 
-                    {{#if (eq selectedEnd this)}}selected{{/if}}> {{this}}
+                    {{#if (eq ../selectedEnd this)}}selected{{/if}}
+                    {{#if (and (eq this ../custom) ../custemEnd)}}selected{{/if}}
+                > 
+                    {{this}}
                 </option>
             {{/each}}
         </select>
+        {{#if custemEnd}}
+        <div>
+            <label>{{localize "rit.customFormula"}}</label>
+            <input id="end_dice" type="text" value={{selectedEnd}}>
+        </div>
+        {{/if}}
     </div>
     {{#if differentDice}}
         <div class="form-group">
             <label>{{localize "rit.direction"}}</label>
             <select id="direction">
-                <option value="up">{{localize "rit.increase"}}</option>
-                <option value="down">{{localize "rit.decrese"}}</option>
+                <option value="up" {{#if (eq ../direction "up")}}checked {{/if}}>{{localize "rit.increase"}}</option>
+                <option value="down"{{#if (eq ../direction "down")}}checked {{/if}}>{{localize "rit.decrese"}}</option>
             </select>
         </div>
     {{/if}}
+    <div class="form-group">
+        <label>{{localize "rit.connectedTable"}}</label>
+        <select id="randomTable">
+            {{#each randomTable}}
+                <option value={{this.uuid}} 
+                    {{#if (eq this.uuid ../selectedRandomTable)}} selected {{/if}}
+                >
+                    {{this.name}}
+                </option>
+            {{/each}}
+        </select>
+        {{#if ownEvent}}
+        <div>
+            <label>{{localize "rit.ownEventText"}}</label>
+            <div class='enrich'>
+                <label>{{localize text.field.label}}</label>
+                {{formInput text.field value=text.value enriched=text.enriched toggled='true'}}
+            </div>
+        </div>
+        {{/if}}
+    </div>
+    <div class="form-group">
+        <label>{{localize "rit.targetNumbet"}}</label>
+        <input id="targetNumber" type="number" value={{targetNumber}}>       
+    </div>
 </div>
+    {{/if}}
+</section>

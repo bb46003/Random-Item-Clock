@@ -1,0 +1,22 @@
+.rit{
+    .status{
+        font-size: large;
+        p{
+            font-weight: bold;
+        }
+    }
+    .enrich{
+        border: 1px solid black;
+        border-radius: 10px;
+    }
+}
+.rti-databutton, .rti-rollbutton{
+    border: none;
+    background: transparent;
+}
+.rti-databutton.light, .rti-rollbutton.light{
+    color: white;
+}
+.rti-databutton.dark, .rti-rollbutton.dark{
+    color: white;
+}
