@@ -51,6 +51,52 @@ Hooks.on("renderItemSheetV2", async (app, html) => {
   }
 });
 
+Hooks.on("renderItemSheet", async (app, jquery) => {
+  const item = app.document;
+  const html = jquery[0];
+  const header = html.querySelector(".window-header");
+  const isOnActor = item._uuid.includes("Actor");
+  const butonExist =
+    html.querySelector(".rti-rollbutton") &&
+    html.querySelector(".rti-databutton");
+  if (header && isOnActor && !butonExist) {
+    const uiConfig = game.settings.get("core", "uiConfig");
+    const theme = uiConfig.colorScheme.interface;
+
+    const rollButton = document.createElement("button");
+    rollButton.type = "button";
+    rollButton.classList.add("rti-rollbutton", theme);
+
+    const rollIcon = document.createElement("i");
+    rollIcon.classList.add("fas", "fa-dice");
+    rollButton.append(rollIcon);
+
+    rollButton.dataset.tooltip = game.i18n.localize("rit.roll");
+    rollButton.addEventListener("click", async (event) => {
+      console.log("Button clicked");
+      const roll = new RollRandom(item);
+      await roll.roll();
+    });
+
+    const dataButton = document.createElement("button");
+    dataButton.type = "button";
+    dataButton.classList.add("rti-databutton", theme);
+
+    const dataIcon = document.createElement("i");
+    dataIcon.classList.add("fa", "fa-info-circle");
+    dataButton.append(dataIcon);
+
+    dataButton.dataset.tooltip = game.i18n.localize("rit.data");
+    dataButton.addEventListener("click", (event) => {
+      const data = new itemRollData(item);
+      data.render({ force: true });
+    });
+
+    const title = header.querySelector(".window-title");
+    title.insertAdjacentElement("afterend", rollButton);
+    rollButton.insertAdjacentElement("afterend", dataButton);
+  }
+});
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ApplicationV2 } = foundry.applications.api;
 
@@ -66,13 +112,7 @@ class itemRollData extends HandlebarsApplicationMixin(ApplicationV2) {
     },
     position: {
       width: 500,
-    },
-    form: {
-      submitOnChange: false,
-      closeOnSubmit: true,
-      handler: itemRollData.#submit,
-    },
-    actions: {},
+    }
   };
   static PARTS = {
     main: {
@@ -93,18 +133,17 @@ class itemRollData extends HandlebarsApplicationMixin(ApplicationV2) {
       "d100",
       game.i18n.localize("rit.other"),
     ];
-    const flags = this.item.flags[MODULE_ID];
-    if (flags) {
-      context.selectedStart = flags.start_dice;
-      context.custemStart = flags.useCustomStart;
-      context.selectedEnd = flags.end_dice;
-      context.custemEnd = flags.useCustomEnd;
-      context.differentDice = flags.start_dice !== flags.end_dice;
-      context.selectedRandomTable = flags.randomTable;
-      context.targetNumber = flags.targetNumber;
-      context.direction = flags.direction;
+    const flags = this?.item?.flags[MODULE_ID];
+      context.selectedStart = flags?.start_dice ?? "d4";
+      context.custemStart = flags?.useCustomStart ?? "";
+      context.selectedEnd = flags?.end_dice ?? "d4";
+      context.custemEnd = flags?.useCustomEnd ?? "";
+      context.differentDice = flags?.start_dice !== flags?.end_dice;
+      context.selectedRandomTable = flags?.randomTable ?? "";
+      context.targetNumber = flags?.targetNumber ?? 0;
+      context.direction = flags?.direction ?? "up";
       context.custom = game.i18n.localize("rit.other");
-      const rawText = flags.ownText ?? "";
+      const rawText = flags?.ownText ?? "";
       const enrichedText = await enrich(rawText);
       context.text = {
         value: rawText,
@@ -114,10 +153,10 @@ class itemRollData extends HandlebarsApplicationMixin(ApplicationV2) {
           nullable: true,
         }),
       };
-    }
+    
     context.randomTable = await this._prepareRandomTable();
     context.currentDice =
-      flags?.currentDice ?? game.i18n.localize("rit.notRolled");
+    flags?.currentDice ?? game.i18n.localize("rit.notRolled");
     context.dice = dice;
     context.isGM = game.user.isGM;
     context.ownEvent = flags?.ownEvent ?? true;
@@ -240,8 +279,8 @@ class itemRollData extends HandlebarsApplicationMixin(ApplicationV2) {
       [`flags.${MODULE_ID}.${id}`]: value,
     });
   }
-  static async #submit() {
-    const element = this.element;
+   async submit(element) {
+    
     const selectors = element.querySelectorAll("select");
     const inputs = element.querySelectorAll("input");
     inputs.forEach(async (input) => {
@@ -250,6 +289,11 @@ class itemRollData extends HandlebarsApplicationMixin(ApplicationV2) {
     selectors.forEach(async (selector) => {
       await this._updateOptions(selector);
     });
+  }
+  async _preClose(){
+    const element = this.element;
+    await this.submit(element);
+    super._preClose();
   }
 }
 class RollRandom {
@@ -263,7 +307,7 @@ class RollRandom {
 
     const currentDice = flags.currentDice ?? flags.start_dice;
     const targetNumber = Number(flags.targetNumber);
-    const resultType = flags.resultType;
+    const resultType = flags?.resultType ?? ">";
     let newDice = currentDice;
     const roll = new Roll(currentDice);
     await roll.evaluate();
