@@ -2,6 +2,10 @@ const MODULE_ID = "random-table-item";
 const { HTMLField } = foundry.data.fields;
 
 Hooks.once("init", function () {
+  CONFIG[MODULE_ID] = {
+    dice: ["d4", "d6", "d8", "d10", "d12", "d20", "d100"],
+    "blade-runner": ["d6", "d8", "d10", "d12", "d12+d6", "d12+d8", "d12+d10", "d12+d12"]
+  };
   registerHandlebarsHelpers();
 });
 
@@ -51,7 +55,6 @@ Hooks.on("renderItemSheetV2", async (app, html) => {
 
       rollButton.dataset.tooltip = game.i18n.localize("rit.roll");
       rollButton.addEventListener("click", async (event) => {
-        console.log("Button clicked");
         const roll = new RollRandom(item);
         await roll.roll();
       });
@@ -111,7 +114,6 @@ Hooks.on("renderItemSheet", async (app, jquery) => {
 
       rollButton.dataset.tooltip = game.i18n.localize("rit.roll");
       rollButton.addEventListener("click", async (event) => {
-        console.log("Button clicked");
         const roll = new RollRandom(item);
         await roll.roll();
       });
@@ -148,16 +150,8 @@ class itemRollData extends HandlebarsApplicationMixin(ApplicationV2) {
 
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-    const dice = [
-      "d4",
-      "d6",
-      "d8",
-      "d10",
-      "d12",
-      "d20",
-      "d100",
-      game.i18n.localize("rit.other"),
-    ];
+    const system = game.system.id;
+    const dice = CONFIG[MODULE_ID]?.[system] ?? CONFIG[MODULE_ID]?.dice;
     const flags = this?.item?.flags[MODULE_ID];
     context.selectedStart = flags?.start_dice ?? "d4";
     context.custemStart = flags?.useCustomStart ?? "";
@@ -382,7 +376,8 @@ class RollRandom {
       return;
     } else {
       const direction = flags.direction;
-      const dice = ["d4", "d6", "d8", "d10", "d12", "d20", "d100"];
+      const system = game.system.id;
+      const dice = CONFIG[MODULE_ID]?.[system] ?? CONFIG[MODULE_ID]?.dice;
 
       const startDice = flags.start_dice;
       const endDice = flags.end_dice;

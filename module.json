@@ -1,7 +1,7 @@
 {
   "id": "random-table-item",
   "title": "Item Random Clock",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "compatibility": {
     "minimum": "14",
     "verified": "14.364"
