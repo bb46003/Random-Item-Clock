@@ -230,7 +230,7 @@ class itemRollData extends HandlebarsApplicationMixin(ApplicationV2) {
     const id = selector.id;
     const item = this.item;
     const value = selector.value;
-    if (value !== game.i18n.localize("rit.other")) {
+    if (value !== "other") {
       await item.update({
         [`flags.${MODULE_ID}.${id}`]: value,
       });

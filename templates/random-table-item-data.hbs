@@ -24,11 +24,11 @@
             {{#each dice}}
                 <option value={{this}} 
                     {{#if (eq ../selectedStart this)}}selected{{/if}}
-                    {{#if (and (eq this ../custom) ../custemStart)}}selected{{/if}}
                 > 
                     {{this}}
                 </option>
             {{/each}}
+            <option value="other"{{#if custemStart}}selected{{/if}}>{{localize "rit.other"}}</option>
         </select>
         {{#if custemStart}}
         <div>
@@ -43,11 +43,11 @@
             {{#each dice}}
                 <option value={{this}} 
                     {{#if (eq ../selectedEnd this)}}selected{{/if}}
-                    {{#if (and (eq this ../custom) ../custemEnd)}}selected{{/if}}
                 > 
                     {{this}}
                 </option>
             {{/each}}
+             <option value="other"{{#if custemEnd}}selected{{/if}}>{{localize "rit.other"}}</option>
         </select>
         {{#if custemEnd}}
         <div>
@@ -59,7 +59,6 @@
     {{#if differentDice}}
         <div class="form-group">
             <label>{{localize "rit.direction"}}</label>
-            {{log (eq direction "down")}}
             <select id="direction">
                 <option value="up" {{#if (eq direction "up")}}selected {{/if}}>{{localize "rit.increase"}}</option>
                 <option value="down" {{#if (eq direction "down")}}selected {{/if}}>{{localize "rit.decrese"}}</option>
